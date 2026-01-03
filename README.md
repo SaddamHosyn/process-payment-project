@@ -1,6 +1,4 @@
-Here is the updated **README.md**. I have added a new **"Cloud Infrastructure Setup (Oracle OCI)"** section at the very top. This highlights that you didn't just write a script, but you also provisioned the cloud server and network yourself.
 
-Copy the entire block below and paste it into GitHub as your `README.md`.
 
 ---
 
