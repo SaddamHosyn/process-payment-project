@@ -1,8 +1,3 @@
-
-
----
-
-````markdown
 # Secure Batch Transaction Processor (Linux + Oracle Cloud)
 
 ## Overview
@@ -30,10 +25,10 @@ Before deploying the automation, I provisioned the underlying infrastructure usi
 
 The system logic is handled by a robust Bash script (`process_payments.sh`) that:
 
-1.  **Watches** an incoming folder (`/incoming/payments`) for new `*.csv` files.
-2.  **Fingerprints** every file using `sha256sum` to detect tampering or data corruption.
-3.  **Audits** the transaction by writing a timestamped, immutable record to `/var/log/transaction_audit.log`.
-4.  **Archives** the processed file to a secure vault (`/archive/processed`) to prevent duplicate processing.
+1. **Watches** an incoming folder (`/incoming/payments`) for new `*.csv` files.
+2. **Fingerprints** every file using `sha256sum` to detect tampering or data corruption.
+3. **Audits** the transaction by writing a timestamped, immutable record to `/var/log/transaction_audit.log`.
+4. **Archives** the processed file to a secure vault (`/archive/processed`) to prevent duplicate processing.
 
 ## 3. Implementation Commands (Reproduction Steps)
 
@@ -42,9 +37,8 @@ Below are the exact commands used to configure the Linux environment and deploy 
 ### Connect to the Cloud Server
 
 ```bash
-ssh -i mykey ubuntu@129.159.245.125
+ssh -i mykey ubuntu@<YOUR_SERVER_IP>
 ```
-````
 
 ### Install Required Tools
 
@@ -58,11 +52,11 @@ sudo apt install nano cron -y
 Created a specific directory hierarchy to separate "Incoming" (Public/SFTP) from "Archived" (Private/Vault).
 
 ```bash
-# secure vault for processed files
+# Secure vault for processed files
 sudo mkdir -p /archive/processed
 sudo chown ubuntu:ubuntu /archive/processed
 
-# restricted incoming folder for clients
+# Restricted incoming folder for clients
 sudo mkdir -p /incoming/payments
 sudo useradd -m -d /home/client_uploader -s /bin/false client_uploader
 sudo chown root:root /incoming
@@ -137,7 +131,3 @@ tail -n 4 /var/log/transaction_audit.log
 ## Project Outcome
 
 The system successfully processed the test files, generating unique SHA-256 hashes for each. This proves the system can detect file tampering (integrity violations) by comparing the cryptographic signatures in the audit log.
-
-```
-
-```
